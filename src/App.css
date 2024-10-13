@@ -1,6 +1,7 @@
 :root {
   --primary: #001529;
   --secondary: #1a44d8;
+  --error: #c36262;
   --off-white: #f5faff;
   --off-black: #151515;
 }
@@ -15,28 +16,39 @@
   flex-direction: column;
   overflow: hidden;
 }
+.primary {
+  background-color: var(--primary) !important;
+  color: var(--off-white) !important;
+}
+.primary-error {
+  background-color: var(--error) !important;
+  color: var(--off-white) !important;
+}
+.ant-typography {
+  margin-bottom: 0 !important;
+}
 
 .header {
   display: flex;
   padding: 15px;
   background-color: var(--primary);
-  width: 100vw;
-  height: 10vh;
+  height: fit-content;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
 }
 
-.logo-container {
+.container {
   display: flex;
+  align-items: center;
   height: 100%;
 }
 .brand {
-  margin-left: 15px;
-  color: var(--off-white) !important;
+  margin-left: 5px;
 }
 
 .body {
-  width: 100vw;
+  width: 100%;
   height: 85vh;
 }
 
@@ -46,5 +58,5 @@
   flex-direction: column;
   padding: 20px;
   align-items: center;
-  width: 100vw;
+  width: 100%;
 }
