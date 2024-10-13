@@ -1,5 +1,5 @@
-import React from "react";
-import { Typography, Row, Col, Card, Avatar, Image } from "antd";
+import React, { useState, useEffect } from "react";
+import { Typography, Row, Col, Card, Avatar, Image, Input } from "antd";
 import { CommentOutlined } from "@ant-design/icons";
 import {
   useGetArticlesQuery,
@@ -13,31 +13,63 @@ const fallbackImage =
 const { Title, Text } = Typography;
 
 const Homepage = () => {
-  const { data: articles, isFetching: isFetchingArticles } =
+  const { data: articleData, isFetching: isFetchingArticles } =
     useGetArticlesQuery();
   const { data: comments, isFetching: isFetchingComments } =
     useGetCommentsQuery();
   const { data: authors, isFetching: isFetchingAuthors } = useGetAuthorsQuery();
 
+  const [articleList, setArticleList] = useState();
+  const [articles, setArticles] = useState();
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    const mappedArticles = articleData?.map((article) => {
+      return {
+        ...article,
+        comments: comments?.filter((comment) => comment.postId === article.id),
+        author: authors
+          ? authors[
+              authors?.findIndex((author) => author.id === article.userId)
+            ]
+          : "Unknown Author",
+      };
+    });
+
+    setArticleList(mappedArticles);
+    console.log("List of articles set");
+  }, [articleData, comments, authors]);
+
+  useEffect(() => {
+    const term = searchTerm.toLowerCase();
+    const filteredData = articleList?.filter(
+      (article) =>
+        article.title.toLowerCase().includes(term) ||
+        article.body.toLowerCase().includes(term) ||
+        article?.author?.name.toLowerCase().includes(term)
+    );
+
+    setArticles(filteredData);
+    console.log("Articles filtered");
+  }, [articleList, searchTerm]);
+
   if (isFetchingArticles || isFetchingComments || isFetchingAuthors)
     return "Loading...";
 
-  const getComments = (postID) =>
-    comments.filter((comment) => comment.postId === postID);
-  const getAuthor = (userID) => {
-    const index = authors.findIndex((author) => author.id === userID);
-
-    if (index < 0) return "Unknown author";
-    return authors[index];
-  };
-
   return (
     <>
-      <Title level={2} className="title">
-        Articles
-      </Title>
+      <div className="article-detail-container">
+        <Title level={2} className="title">
+          Hi, China Marie
+        </Title>
+        <Input
+          placeholder="Search for an article..."
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{ width: "300px" }}
+        />
+      </div>
       <Row gutter={[24, 24]}>
-        {articles.map((article, i) => (
+        {articles?.map((article, i) => (
           <Col xs={24} sm={12} lg={8} key={i}>
             <Card hoverable className="news-card">
               <a>
@@ -58,7 +90,7 @@ const Homepage = () => {
                   <div>
                     <Avatar src={`https://unsplash.it/100?image=${i}`} />
                     <Text className="article-detail">
-                      {getAuthor(article.userId).name}
+                      {article?.author?.name}
                     </Text>
                   </div>
                   <div className="article-detail-container">
@@ -69,7 +101,7 @@ const Homepage = () => {
                       className="title"
                     />
                     <Text className="article-detail">
-                      {getComments(article.id).length}
+                      {article?.comments?.length}
                     </Text>
                   </div>
                 </div>

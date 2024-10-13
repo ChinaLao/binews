@@ -55,6 +55,7 @@
 }
 .title {
   color: var(--primary) !important;
+  width: fit-content;
 }
 
 .news-card {
