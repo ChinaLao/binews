@@ -69,8 +69,8 @@ const Homepage = () => {
         />
       </div>
       <Row gutter={[24, 24]}>
-        {articles?.map((article, i) => (
-          <Col xs={24} sm={12} lg={8} key={i}>
+        {articles?.map((article) => (
+          <Col xs={24} sm={12} lg={8} key={article.id}>
             <Card hoverable className="news-card">
               <a>
                 <div className="news-image-container">
@@ -80,7 +80,7 @@ const Homepage = () => {
                   <Image
                     width={100}
                     height={100}
-                    src={`https://unsplash.it/150?image=${i}`}
+                    src={`https://unsplash.it/150?image=${article.id}`}
                     alt="news"
                     fallback={fallbackImage}
                     preview={false}
@@ -88,7 +88,9 @@ const Homepage = () => {
                 </div>
                 <div className="article-detail-container">
                   <div>
-                    <Avatar src={`https://unsplash.it/100?image=${i}`} />
+                    <Avatar
+                      src={`https://unsplash.it/100?image=${article.id}`}
+                    />
                     <Text className="article-detail">
                       {article?.author?.name}
                     </Text>
