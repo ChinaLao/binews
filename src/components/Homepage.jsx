@@ -32,7 +32,7 @@ const Homepage = () => {
           ? authors[
               authors?.findIndex((author) => author.id === article.userId)
             ]
-          : "Unknown Author",
+          : { name: "Unknown Author" },
       };
     });
 
@@ -91,9 +91,7 @@ const Homepage = () => {
                     <Avatar
                       src={`https://unsplash.it/100?image=${article.id}`}
                     />
-                    <Text className="article-detail">
-                      {article?.author?.name}
-                    </Text>
+                    <Text className="detail">{article?.author?.name}</Text>
                   </div>
                   <div className="article-detail-container">
                     <CommentOutlined
@@ -102,9 +100,7 @@ const Homepage = () => {
                       }}
                       className="primary-text"
                     />
-                    <Text className="article-detail">
-                      {article?.comments?.length}
-                    </Text>
+                    <Text className="detail">{article?.comments?.length}</Text>
                   </div>
                 </div>
               </a>

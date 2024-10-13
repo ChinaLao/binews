@@ -12,7 +12,7 @@ export const newsArticleAPI = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: baseURL }),
   endpoints: (builder) => ({
     getArticles: builder.query({
-      query: () => createRequest("/posts"),
+      query: (postId) => createRequest(`/posts${postId ? `/${postId}` : ""}`),
     }),
   }),
 });
@@ -30,7 +30,8 @@ export const newsAuthorsAPI = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: baseURL }),
   endpoints: (builder) => ({
     getAuthors: builder.query({
-      query: () => createRequest("/users"),
+      query: (authorId) =>
+        createRequest(`/users${authorId ? `/${authorId}` : ""}`),
     }),
   }),
 });

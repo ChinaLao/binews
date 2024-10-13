@@ -28,6 +28,17 @@
   color: var(--primary) !important;
   width: fit-content;
 }
+.primary-title {
+  color: var(--primary) !important;
+  text-transform: uppercase;
+  text-align: center;
+}
+.primary-subtitle {
+  color: var(--primary) !important;
+  font-style: italic;
+  text-align: center;
+  margin-top: 5px !important;
+}
 .ant-typography {
   margin-bottom: 0 !important;
 }
@@ -81,8 +92,33 @@
   justify-content: space-between;
   align-items: center;
 }
-.article-detail {
+.detail {
   margin-left: 10px;
+}
+.article-display-container {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.article-display {
+  height: fit-content;
+  max-width: 600px;
+  background-color: white;
+}
+.article-body {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.comments-container {
+  width: 100%;
+  height: fit-content;
+  margin-top: 20px;
+}
+.comment {
+  width: 100%;
+  margin: 20px;
 }
 
 .footer {
