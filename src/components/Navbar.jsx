@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Avatar, Button } from "antd";
-import icon from "../images/bing-logo.png";
 import { LogoutOutlined } from "@ant-design/icons";
+import icon from "../images/bing-logo.png";
 
 const Navbar = () => (
   <>
@@ -20,4 +20,5 @@ const Navbar = () => (
     </Button>
   </>
 );
+
 export default Navbar;

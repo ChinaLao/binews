@@ -55,8 +55,9 @@
 .footer {
   background-color: var(--primary);
   display: flex;
-  flex-direction: column;
-  padding: 20px;
-  align-items: center;
+  position: fixed;
+  bottom: 0;
+  padding: 10px;
+  justify-content: center;
   width: 100%;
 }
