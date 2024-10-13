@@ -1,6 +1,7 @@
 :root {
   --primary: #001529;
-  --off-white: #f9f9f9;
+  --secondary: #1a44d8;
+  --off-white: #f5faff;
   --off-black: #151515;
 }
 * {
@@ -9,32 +10,34 @@
   box-sizing: border-box;
 }
 .app {
+  background-color: var(--off-white);
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
 .header {
+  display: flex;
+  padding: 15px;
   background-color: var(--primary);
   width: 100vw;
   height: 10vh;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-container {
+  display: flex;
+  height: 100%;
+}
+.brand {
+  margin-left: 15px;
+  color: var(--off-white) !important;
 }
 
 .body {
   width: 100vw;
   height: 85vh;
-}
-
-.logo-container {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  padding: 15px;
-}
-.logo {
-  margin: 15px;
-  color: var(--off-white) !important;
 }
 
 .footer {
