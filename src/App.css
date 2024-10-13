@@ -24,6 +24,10 @@
   background-color: var(--error) !important;
   color: var(--off-white) !important;
 }
+.primary-text {
+  color: var(--primary) !important;
+  width: fit-content;
+}
 .ant-typography {
   margin-bottom: 0 !important;
 }
@@ -46,6 +50,9 @@
 .brand {
   margin-left: 5px;
 }
+.brand a {
+  color: white;
+}
 
 .body {
   width: 100%;
@@ -53,22 +60,21 @@
   padding: 20px;
   overflow-y: auto;
 }
-.title {
-  color: var(--primary) !important;
-  width: fit-content;
-}
 
-.news-card {
+.article-card {
   margin-top: 10px;
   min-height: 200px;
 }
-.news-image-container {
+.article-container {
   display: flex !important;
   justify-content: space-between !important;
+  height: 150px;
   margin-bottom: 15px;
+  overflow: hidden;
 }
-.news-title {
+.article-title {
   width: 70%;
+  margin-right: 15px;
 }
 .article-detail-container {
   display: flex;

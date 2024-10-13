@@ -59,7 +59,7 @@ const Homepage = () => {
   return (
     <>
       <div className="article-detail-container">
-        <Title level={2} className="title">
+        <Title level={2} className="primary-text">
           Hi, China Marie
         </Title>
         <Input
@@ -71,17 +71,17 @@ const Homepage = () => {
       <Row gutter={[24, 24]}>
         {articles?.map((article) => (
           <Col xs={24} sm={12} lg={8} key={article.id}>
-            <Card hoverable className="news-card">
-              <a>
-                <div className="news-image-container">
-                  <Title className="news-title" level={4}>
+            <Card hoverable className="article-card">
+              <a href={`/articles/${article.id}`}>
+                <div className="article-container">
+                  <Title className="article-title" level={4}>
                     {article.title}
                   </Title>
                   <Image
                     width={100}
                     height={100}
                     src={`https://unsplash.it/150?image=${article.id}`}
-                    alt="news"
+                    alt="article"
                     fallback={fallbackImage}
                     preview={false}
                   />
@@ -100,7 +100,7 @@ const Homepage = () => {
                       style={{
                         fontSize: "20px",
                       }}
-                      className="title"
+                      className="primary-text"
                     />
                     <Text className="article-detail">
                       {article?.comments?.length}
