@@ -50,6 +50,32 @@
 .body {
   width: 100%;
   height: 85vh;
+  padding: 20px;
+  overflow-y: auto;
+}
+.title {
+  color: var(--primary) !important;
+}
+
+.news-card {
+  margin-top: 10px;
+  min-height: 200px;
+}
+.news-image-container {
+  display: flex !important;
+  justify-content: space-between !important;
+  margin-bottom: 15px;
+}
+.news-title {
+  width: 70%;
+}
+.article-detail-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.article-detail {
+  margin-left: 10px;
 }
 
 .footer {
