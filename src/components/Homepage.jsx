@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Row, Col, Card, Avatar, Image, Input } from "antd";
 import { CommentOutlined } from "@ant-design/icons";
+import ArticleForm from "./ArticleForm";
 import {
   useGetArticlesQuery,
   useGetCommentsQuery,
@@ -77,6 +78,7 @@ const Homepage = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           style={{ width: "300px", marginRight: "15px" }}
         />
+        <ArticleForm />
       </div>
       <Row gutter={[24, 24]}>
         {articles?.map((article) => (

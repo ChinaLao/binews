@@ -10,12 +10,25 @@ const createRequest = (url) => ({ url, headers: headers });
 export const newsArticleAPI = createApi({
   reducerPath: "newsArticleAPI",
   baseQuery: fetchBaseQuery({ baseUrl: baseURL }),
+  tagTypes: ["Articles"],
   endpoints: (builder) => ({
     getArticles: builder.query({
       query: (postId) => createRequest(`/posts${postId ? `/${postId}` : ""}`),
+      providesTags: ["Articles"],
+      transformResponse: (response) => response.sort((a, b) => b.id - a.id),
+    }),
+    addArticle: builder.mutation({
+      query: (articleData) => ({
+        url: "/posts",
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(articleData),
+      }),
+      invalidatesTags: ["Articles"],
     }),
   }),
 });
+
 export const newsCommentsAPI = createApi({
   reducerPath: "newsCommentsAPI",
   baseQuery: fetchBaseQuery({ baseUrl: baseURL }),
@@ -25,6 +38,7 @@ export const newsCommentsAPI = createApi({
     }),
   }),
 });
+
 export const newsAuthorsAPI = createApi({
   reducerPath: "newsAuthorsAPI",
   baseQuery: fetchBaseQuery({ baseUrl: baseURL }),
@@ -36,6 +50,6 @@ export const newsAuthorsAPI = createApi({
   }),
 });
 
-export const { useGetArticlesQuery } = newsArticleAPI;
+export const { useGetArticlesQuery, useAddArticleMutation } = newsArticleAPI;
 export const { useGetCommentsQuery } = newsCommentsAPI;
 export const { useGetAuthorsQuery } = newsAuthorsAPI;
