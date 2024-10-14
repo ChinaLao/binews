@@ -67,7 +67,9 @@ const Article = () => {
             {article?.comments?.map((comment) => (
               <div className="comment">
                 <Col>
-                  <Avatar src={`https://unsplash.it/100?image=${comment.id}`} />
+                  <Avatar
+                    src={`https://avatar.iran.liara.run/username?username=${comment.email}`}
+                  />
                   <Text className="detail">{comment.email}</Text>
                 </Col>
                 <Text>{comment.body}</Text>

@@ -58,14 +58,24 @@ const Homepage = () => {
 
   return (
     <>
-      <div className="article-detail-container">
-        <Title level={2} className="primary-text">
-          Hi, China Marie
+      <Row style={{ marginBottom: "15px" }}>
+        <Title
+          level={2}
+          className="primary-text"
+          style={{ marginRight: "15px" }}
+        >
+          Hi, China
         </Title>
+        <Avatar
+          src={`https://avatar.iran.liara.run/username?username=${"china+Lao"}`}
+          size="large"
+        />
+      </Row>
+      <div className="article-detail-container">
         <Input
           placeholder="Search for an article..."
           onChange={(e) => setSearchTerm(e.target.value)}
-          style={{ width: "300px" }}
+          style={{ width: "300px", marginRight: "15px" }}
         />
       </div>
       <Row gutter={[24, 24]}>
@@ -89,7 +99,7 @@ const Homepage = () => {
                 <div className="article-detail-container">
                   <div>
                     <Avatar
-                      src={`https://unsplash.it/100?image=${article.id}`}
+                      src={`https://avatar.iran.liara.run/username?username=${article?.author?.name}`}
                     />
                     <Text className="detail">{article?.author?.name}</Text>
                   </div>
