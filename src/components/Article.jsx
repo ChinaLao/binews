@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import HTMLReactParser from "html-react-parser/lib/index";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Typography, Card, Avatar, Col, Divider, Image, Button } from "antd";
 import { RollbackOutlined } from "@ant-design/icons";
 import {
@@ -21,6 +20,7 @@ const Article = () => {
   const { selectedArticle } = useSelector((store) => store.articles);
   const dispatch = useDispatch();
   const { articleId } = useParams();
+  const navigate = useNavigate();
   const { data: articleData, isFetching: isFetchingArticles } =
     useGetArticlesQuery(articleId);
   const { data: comments, isFetching: isFetchingComments } =
@@ -52,6 +52,7 @@ const Article = () => {
         <Button
           className="primary-error"
           icon={<RollbackOutlined className="primary-error" />}
+          onClick={() => navigate("/")}
         >
           Go back
         </Button>
