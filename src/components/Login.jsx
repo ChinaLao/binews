@@ -1,10 +1,18 @@
 import React from "react";
 import { Button, Avatar, Form, Input, Typography } from "antd";
 import icon from "../images/bing-logo.png";
+import { auth } from "../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const [form] = Form.useForm();
+
+  const onFinish = async (e) => {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      e.username,
+      e.password
+    );
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -27,6 +35,7 @@ const Login = () => {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
+          form={form}
         >
           <Form.Item
             label="Username"
