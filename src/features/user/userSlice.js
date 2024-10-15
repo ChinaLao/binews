@@ -9,7 +9,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setCurrentUser: (state, action) => {
-      state.selectedArticle = action.payload;
+      state.currentUser = action.payload;
     },
     clearCurrentUser: (state) => {
       state.currentUser = null;

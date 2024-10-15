@@ -1,11 +1,14 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Button, Avatar, Form, Input, Typography } from "antd";
-import icon from "../images/bing-logo.png";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useGetUsersQuery } from "../services/UsersAPI";
+import { setCurrentUser } from "../features/user/userSlice";
+import icon from "../images/bing-logo.png";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
 
   const { data: usersData, isFetching: isFetchingUsers } = useGetUsersQuery();
@@ -19,6 +22,12 @@ const Login = () => {
         `${e.username}@binews.tsina`,
         e.password
       );
+
+      const index = usersData?.findIndex(
+        (user) => user.username === e.username && user.email === e.password
+      );
+
+      if (index >= 0) dispatch(setCurrentUser(usersData[index]));
     } catch (error) {
       console.log(error);
     }
