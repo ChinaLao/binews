@@ -42,7 +42,6 @@ const Homepage = () => {
     });
 
     setArticleList(mappedArticles);
-    console.log("List of articles set");
   }, [articleData, comments, authors]);
 
   useEffect(() => {
@@ -55,8 +54,6 @@ const Homepage = () => {
     );
 
     dispatch(initialize(filteredData));
-
-    console.log("Articles filtered");
   }, [articleList, searchTerm]);
 
   if (isFetchingArticles || isFetchingComments || isFetchingAuthors)

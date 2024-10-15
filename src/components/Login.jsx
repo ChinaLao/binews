@@ -1,5 +1,6 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Button, Avatar, Form, Input, Typography } from "antd";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -9,6 +10,7 @@ import icon from "../images/bing-logo.png";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [form] = Form.useForm();
 
   const { data: usersData, isFetching: isFetchingUsers } = useGetUsersQuery();
@@ -27,14 +29,13 @@ const Login = () => {
         (user) => user.username === e.username && user.email === e.password
       );
 
-      if (index >= 0) dispatch(setCurrentUser(usersData[index]));
+      if (index >= 0) {
+        dispatch(setCurrentUser(usersData[index]));
+        navigate("/");
+      }
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
   };
 
   return (
@@ -51,7 +52,6 @@ const Login = () => {
           style={{ width: "600px", marginTop: "15px" }}
           initialValues={{ remember: true }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
           form={form}
         >
