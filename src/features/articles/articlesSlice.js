@@ -11,9 +11,11 @@ const articlesSlice = createSlice({
   reducers: {
     initialize: (state, action) => {
       state.articles = action.payload;
+      state.articles?.sort((a, b) => b.id - a.id);
     },
     addArticle: (state, action) => {
       state.articles?.push(action.payload);
+      state.articles?.sort((a, b) => b.id - a.id);
     },
     setSelectedArticle: (state, action) => {
       state.selectedArticle = action.payload;
