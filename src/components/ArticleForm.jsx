@@ -10,6 +10,7 @@ import { addArticle, editArticle } from "../features/articles/articlesSlice";
 
 const ArticleForm = (props) => {
   const { selectedArticle } = useSelector((store) => store.articles);
+  const { currentUser } = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
   const [form] = Form.useForm();
@@ -34,7 +35,7 @@ const ArticleForm = (props) => {
   const submitArticle = async (e) => {
     if (props.type === "Add") {
       const response = await postArticle({
-        userId: 1727,
+        userId: currentUser.id,
         ...e,
       });
 
@@ -45,7 +46,7 @@ const ArticleForm = (props) => {
       const response = await putArticle({
         id: selectedArticle.id,
         ...e,
-        userId: 1727,
+        userId: currentUser.id,
       });
 
       console.log(`Updated article ID ${selectedArticle.id}!`, response.data);

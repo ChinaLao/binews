@@ -23,6 +23,7 @@ const Homepage = () => {
   const { data: authors, isFetching: isFetchingAuthors } = useGetAuthorsQuery();
 
   const { articles } = useSelector((store) => store.articles);
+  const { currentUser } = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
   const [articleList, setArticleList] = useState();
@@ -67,10 +68,10 @@ const Homepage = () => {
           className="primary-text"
           style={{ marginRight: "15px" }}
         >
-          Hi, China
+          Hi, {currentUser.name}
         </Title>
         <Avatar
-          src={`https://avatar.iran.liara.run/username?username=${"china+Lao"}`}
+          src={`https://avatar.iran.liara.run/username?username=${currentUser.name}`}
           size="large"
         />
       </Row>

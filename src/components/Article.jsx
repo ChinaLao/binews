@@ -18,6 +18,7 @@ const { Title, Text } = Typography;
 
 const Article = () => {
   const { selectedArticle } = useSelector((store) => store.articles);
+  const { currentUser } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const { articleId } = useParams();
   const navigate = useNavigate();
@@ -56,7 +57,9 @@ const Article = () => {
         >
           Go back
         </Button>
-        <ArticleForm type="Edit" />
+        {currentUser.id === selectedArticle.author.id && (
+          <ArticleForm type="Edit" />
+        )}
       </div>
       <div className="article-display-container">
         <Card className="article-display">
