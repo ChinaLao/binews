@@ -23,11 +23,15 @@ const Homepage = () => {
   const { data: authors, isFetching: isFetchingAuthors } = useGetAuthorsQuery();
 
   const { articles } = useSelector((store) => store.articles);
-  const { currentUser } = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
+  const [currentUser, setCurrentUser] = useState(null);
   const [articleList, setArticleList] = useState();
   const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    setCurrentUser(JSON.parse(localStorage.getItem("currentUser")));
+  }, []);
 
   useEffect(() => {
     const mappedArticles = articleData?.map((article) => {
@@ -68,10 +72,10 @@ const Homepage = () => {
           className="primary-text"
           style={{ marginRight: "15px" }}
         >
-          Hi, {currentUser.name}
+          Hi, {currentUser?.name}
         </Title>
         <Avatar
-          src={`https://avatar.iran.liara.run/username?username=${currentUser.name}`}
+          src={`https://avatar.iran.liara.run/username?username=${currentUser?.name}`}
           size="large"
         />
       </Row>

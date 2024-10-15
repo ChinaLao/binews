@@ -4,14 +4,17 @@ import { Typography, Avatar, Button } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { clearCurrentUser } from "../features/user/userSlice";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
 import icon from "../images/bing-logo.png";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const logout = () => {
+  const logout = async () => {
+    await signOut(auth);
     dispatch(clearCurrentUser());
-    navigate("/");
+    navigate("/login");
   };
 
   return (

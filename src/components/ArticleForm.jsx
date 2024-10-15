@@ -10,13 +10,17 @@ import { addArticle, editArticle } from "../features/articles/articlesSlice";
 
 const ArticleForm = (props) => {
   const { selectedArticle } = useSelector((store) => store.articles);
-  const { currentUser } = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
   const [form] = Form.useForm();
   const [postArticle] = usePostArticleMutation();
   const [putArticle] = usePutArticleMutation();
+  const [currentUser, setCurrentUser] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    setCurrentUser(JSON.parse(localStorage.getItem("currentUser")));
+  }, []);
 
   useEffect(() => {
     if (props.type === "Edit") {
@@ -46,7 +50,7 @@ const ArticleForm = (props) => {
       const response = await putArticle({
         id: selectedArticle.id,
         ...e,
-        userId: currentUser.id,
+        userId: currentUser?.id,
       });
 
       console.log(`Updated article ID ${selectedArticle.id}!`, response.data);

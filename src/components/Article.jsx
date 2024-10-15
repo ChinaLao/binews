@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { Typography, Card, Avatar, Col, Divider, Image, Button } from "antd";
@@ -18,7 +18,6 @@ const { Title, Text } = Typography;
 
 const Article = () => {
   const { selectedArticle } = useSelector((store) => store.articles);
-  const { currentUser } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const { articleId } = useParams();
   const navigate = useNavigate();
@@ -27,6 +26,12 @@ const Article = () => {
   const { data: comments, isFetching: isFetchingComments } =
     useGetCommentsQuery();
   const { data: authors, isFetching: isFetchingAuthors } = useGetAuthorsQuery();
+
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    setCurrentUser(JSON.parse(localStorage.getItem("currentUser")));
+  }, []);
 
   useEffect(() => {
     dispatch(
@@ -57,7 +62,7 @@ const Article = () => {
         >
           Go back
         </Button>
-        {currentUser.id === selectedArticle.author.id && (
+        {currentUser?.id === selectedArticle.author?.id && (
           <ArticleForm type="Edit" />
         )}
       </div>

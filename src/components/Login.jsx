@@ -1,5 +1,5 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button, Avatar, Form, Input, Typography } from "antd";
 import { auth } from "../firebase";
@@ -9,9 +9,14 @@ import { setCurrentUser } from "../features/user/userSlice";
 import icon from "../images/bing-logo.png";
 
 const Login = () => {
+  const { userAuth, currentUser } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (userAuth !== null) navigate("/");
+  }, [userAuth]);
 
   const { data: usersData, isFetching: isFetchingUsers } = useGetUsersQuery();
 
@@ -31,7 +36,6 @@ const Login = () => {
 
       if (index >= 0) {
         dispatch(setCurrentUser(usersData[index]));
-        navigate("/");
       }
     } catch (error) {
       console.log(error);
