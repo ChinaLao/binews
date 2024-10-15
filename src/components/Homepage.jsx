@@ -83,7 +83,7 @@ const Homepage = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           style={{ width: "300px", marginRight: "15px" }}
         />
-        <ArticleForm />
+        <ArticleForm type="Add" />
       </div>
       <Row gutter={[24, 24]}>
         {articles?.map((article) => (

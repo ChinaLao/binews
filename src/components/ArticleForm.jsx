@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { FileAddOutlined } from "@ant-design/icons";
+import { FileAddOutlined, EditOutlined } from "@ant-design/icons";
 import { Button, Col, Drawer, Form, Input, Row } from "antd";
 import { usePostArticleMutation } from "../services/NewsArticlesAPI";
 import { addArticle } from "../features/articles/articlesSlice";
 
-const ArticleForm = () => {
+const ArticleForm = (props) => {
   const dispatch = useDispatch();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -36,12 +36,18 @@ const ArticleForm = () => {
       <Button
         className="primary-success"
         onClick={openDrawer}
-        icon={<FileAddOutlined className="primary-success" />}
+        icon={
+          props.type === "Add" ? (
+            <FileAddOutlined className="primary-success" />
+          ) : (
+            <EditOutlined className="primary-success" />
+          )
+        }
       >
-        Create
+        {props.type}
       </Button>
       <Drawer
-        title="Create a new article"
+        title={`${props.type} article`}
         width={720}
         onClose={closeDrawer}
         open={isDrawerOpen}
@@ -88,7 +94,7 @@ const ArticleForm = () => {
             <Col span={24}>
               <Form.Item>
                 <Button block className={`primary-success`} htmlType="submit">
-                  Create Article
+                  {`${props.type} Article`}
                 </Button>
               </Form.Item>
             </Col>
