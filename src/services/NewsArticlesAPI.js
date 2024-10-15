@@ -29,6 +29,16 @@ export const newsArticleAPI = createApi({
       }),
       invalidatesTags: ["Articles"],
     }),
+
+    putArticle: builder.mutation({
+      query: (articleData) => ({
+        url: `/posts/${articleData.id}`,
+        method: "PUT",
+        headers: headers,
+        body: JSON.stringify(articleData),
+      }),
+      invalidatesTags: ["Articles"],
+    }),
   }),
 });
 
@@ -53,6 +63,10 @@ export const newsAuthorsAPI = createApi({
   }),
 });
 
-export const { useGetArticlesQuery, usePostArticleMutation } = newsArticleAPI;
+export const {
+  useGetArticlesQuery,
+  usePostArticleMutation,
+  usePutArticleMutation,
+} = newsArticleAPI;
 export const { useGetCommentsQuery } = newsCommentsAPI;
 export const { useGetAuthorsQuery } = newsAuthorsAPI;

@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FileAddOutlined, EditOutlined } from "@ant-design/icons";
 import { Button, Col, Drawer, Form, Input, Row } from "antd";
-import { usePostArticleMutation } from "../services/NewsArticlesAPI";
+import {
+  usePostArticleMutation,
+  usePutArticleMutation,
+} from "../services/NewsArticlesAPI";
 import { addArticle } from "../features/articles/articlesSlice";
 
 const ArticleForm = (props) => {
@@ -11,6 +14,7 @@ const ArticleForm = (props) => {
 
   const [form] = Form.useForm();
   const [postArticle] = usePostArticleMutation();
+  const [putArticle] = usePutArticleMutation();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   useEffect(() => {
@@ -28,14 +32,27 @@ const ArticleForm = (props) => {
     setIsDrawerOpen(false);
   };
   const submitArticle = async (e) => {
-    const response = await postArticle({
-      userId: 1727,
-      ...e,
-    });
+    if (props.type === "Add") {
+      const response = await postArticle({
+        userId: 1727,
+        ...e,
+      });
 
-    console.log("Created new article!", response.data);
+      console.log("Created new article!", response.data);
 
-    dispatch(addArticle(response.data));
+      dispatch(addArticle(response.data));
+    } else {
+      console.log(selectedArticle.id);
+
+      const response = await putArticle({
+        id: selectedArticle.id,
+        ...e,
+        userId: 1727,
+      });
+
+      console.log(`Updated article ID ${selectedArticle.id}!`, response.data);
+    }
+
     closeDrawer();
   };
 
@@ -55,6 +72,7 @@ const ArticleForm = (props) => {
         {props.type}
       </Button>
       <Drawer
+        forceRender
         title={`${props.type} article`}
         width={720}
         onClose={closeDrawer}
