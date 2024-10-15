@@ -1,16 +1,24 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { FileAddOutlined, EditOutlined } from "@ant-design/icons";
 import { Button, Col, Drawer, Form, Input, Row } from "antd";
 import { usePostArticleMutation } from "../services/NewsArticlesAPI";
 import { addArticle } from "../features/articles/articlesSlice";
 
 const ArticleForm = (props) => {
+  const { selectedArticle } = useSelector((store) => store.articles);
   const dispatch = useDispatch();
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const [form] = Form.useForm();
   const [postArticle] = usePostArticleMutation();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    if (props.type === "Edit") {
+      form.setFieldValue("title", selectedArticle.title);
+      form.setFieldValue("body", selectedArticle.body);
+    }
+  }, [selectedArticle]);
 
   const openDrawer = () => {
     setIsDrawerOpen(true);
