@@ -6,7 +6,7 @@ import icon from "../images/bing-logo.png";
 
 const Navbar = () => (
   <>
-    <div className="container primary">
+    <div className="logo-container primary">
       <Avatar src={icon} size="large" />
       <Typography.Title level={2} className="brand">
         <Link to="/">Binews</Link>
