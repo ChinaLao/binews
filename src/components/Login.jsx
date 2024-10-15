@@ -8,11 +8,15 @@ const Login = () => {
   const [form] = Form.useForm();
 
   const onFinish = async (e) => {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      e.username,
-      e.password
-    );
+    try {
+      await signInWithEmailAndPassword(
+        auth,
+        `${e.username}@binews.tsina`,
+        e.password
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
