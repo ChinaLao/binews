@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { FileAddOutlined } from "@ant-design/icons";
 import { Button, Col, Drawer, Form, Input, Row } from "antd";
 import { usePostArticleMutation } from "../services/NewsArticlesAPI";
+import { addArticle } from "../features/articles/articlesSlice";
 
 const ArticleForm = () => {
+  const dispatch = useDispatch();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const [form] = Form.useForm();
-  const [postArticle, result] = usePostArticleMutation();
+  const [postArticle] = usePostArticleMutation();
 
   const openDrawer = () => {
     setIsDrawerOpen(true);
@@ -22,8 +25,9 @@ const ArticleForm = () => {
       ...e,
     });
 
-    console.log("Created new article!", response, result);
+    console.log("Created new article!", response.data);
 
+    dispatch(addArticle(response.data));
     closeDrawer();
   };
 
