@@ -3,9 +3,14 @@ import { Button, Avatar, Form, Input, Typography } from "antd";
 import icon from "../images/bing-logo.png";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useGetUsersQuery } from "../services/UsersAPI";
 
 const Login = () => {
   const [form] = Form.useForm();
+
+  const { data: usersData, isFetching: isFetchingUsers } = useGetUsersQuery();
+
+  if (isFetchingUsers) return "Loading...";
 
   const onFinish = async (e) => {
     try {
