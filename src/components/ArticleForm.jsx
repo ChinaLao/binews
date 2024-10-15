@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { FileAddOutlined } from "@ant-design/icons";
 import { Button, Col, Drawer, Form, Input, Row } from "antd";
-import { useAddArticleMutation } from "../services/NewsArticlesAPI";
+import { usePostArticleMutation } from "../services/NewsArticlesAPI";
 
 const ArticleForm = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const [form] = Form.useForm();
-  const [addArticle] = useAddArticleMutation();
+  const [postArticle, result] = usePostArticleMutation();
 
   const openDrawer = () => {
     setIsDrawerOpen(true);
@@ -17,12 +17,12 @@ const ArticleForm = () => {
     setIsDrawerOpen(false);
   };
   const submitArticle = async (e) => {
-    const response = await addArticle({
+    const response = await postArticle({
       userId: 1727,
       ...e,
     });
 
-    console.log("Created new article!", response);
+    console.log("Created new article!", response, result);
 
     closeDrawer();
   };
