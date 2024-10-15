@@ -42,8 +42,6 @@ const ArticleForm = (props) => {
 
       dispatch(addArticle(response.data));
     } else {
-      console.log(selectedArticle.id);
-
       const response = await putArticle({
         id: selectedArticle.id,
         ...e,
