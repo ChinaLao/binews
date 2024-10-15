@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button, Avatar, Form, Input, Typography } from "antd";
@@ -9,7 +9,7 @@ import { setCurrentUser } from "../features/user/userSlice";
 import icon from "../images/bing-logo.png";
 
 const Login = () => {
-  const { userAuth, currentUser } = useSelector((store) => store.user);
+  const { userAuth } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form] = Form.useForm();

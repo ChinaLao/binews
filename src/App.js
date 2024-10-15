@@ -10,7 +10,7 @@ import { auth } from "./firebase";
 import { setUserAuth } from "./features/user/userSlice";
 
 const App = () => {
-  const { userAuth, currentUser } = useSelector((store) => store.user);
+  const { userAuth } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
