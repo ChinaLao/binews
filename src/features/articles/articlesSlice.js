@@ -18,10 +18,14 @@ const articlesSlice = createSlice({
     setSelectedArticle: (state, action) => {
       state.selectedArticle = action.payload;
     },
+    editArticle: (state, action) => {
+      state.selectedArticle.title = action.payload.title;
+      state.selectedArticle.body = action.payload.body;
+    },
   },
 });
 
-export const { initialize, addArticle, setSelectedArticle } =
+export const { initialize, addArticle, setSelectedArticle, editArticle } =
   articlesSlice.actions;
 
 export default articlesSlice.reducer;

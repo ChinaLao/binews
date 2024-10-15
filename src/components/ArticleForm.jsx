@@ -6,7 +6,7 @@ import {
   usePostArticleMutation,
   usePutArticleMutation,
 } from "../services/NewsArticlesAPI";
-import { addArticle } from "../features/articles/articlesSlice";
+import { addArticle, editArticle } from "../features/articles/articlesSlice";
 
 const ArticleForm = (props) => {
   const { selectedArticle } = useSelector((store) => store.articles);
@@ -51,6 +51,8 @@ const ArticleForm = (props) => {
       });
 
       console.log(`Updated article ID ${selectedArticle.id}!`, response.data);
+
+      dispatch(editArticle(response.data));
     }
 
     closeDrawer();
