@@ -15,7 +15,12 @@ const ArticleForm = (props) => {
   const [form] = Form.useForm();
   const [postArticle] = usePostArticleMutation();
   const [putArticle] = usePutArticleMutation();
+  const [currentUser, setCurrentUser] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    setCurrentUser(JSON.parse(localStorage.getItem("currentUser")));
+  }, []);
 
   useEffect(() => {
     if (props.type === "Edit") {
@@ -34,7 +39,7 @@ const ArticleForm = (props) => {
   const submitArticle = async (e) => {
     if (props.type === "Add") {
       const response = await postArticle({
-        userId: 1727,
+        userId: currentUser.id,
         ...e,
       });
 
@@ -42,12 +47,10 @@ const ArticleForm = (props) => {
 
       dispatch(addArticle(response.data));
     } else {
-      console.log(selectedArticle.id);
-
       const response = await putArticle({
         id: selectedArticle.id,
         ...e,
-        userId: 1727,
+        userId: currentUser?.id,
       });
 
       console.log(`Updated article ID ${selectedArticle.id}!`, response.data);
