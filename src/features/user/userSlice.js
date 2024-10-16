@@ -12,11 +12,11 @@ const userSlice = createSlice({
       state.userAuth = action.payload;
     },
     setCurrentUser: (state, action) => {
-      localStorage.setItem("currentUser", JSON.stringify(action.payload));
+      sessionStorage.setItem("currentUser", JSON.stringify(action.payload));
     },
     clearCurrentUser: (state) => {
       state.userAuth = null;
-      localStorage.clear();
+      sessionStorage.clear();
     },
   },
 });

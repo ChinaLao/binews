@@ -19,7 +19,7 @@ const ArticleForm = (props) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   useEffect(() => {
-    setCurrentUser(JSON.parse(localStorage.getItem("currentUser")));
+    setCurrentUser(JSON.parse(sessionStorage.getItem("currentUser")));
   }, []);
 
   useEffect(() => {
@@ -39,8 +39,9 @@ const ArticleForm = (props) => {
   const submitArticle = async (e) => {
     if (props.type === "Add") {
       const response = await postArticle({
-        userId: currentUser.id,
-        ...e,
+        userId: currentUser?.id,
+        title: e.title,
+        body: e.body,
       });
 
       console.log("Created new article!", response.data);
@@ -49,7 +50,8 @@ const ArticleForm = (props) => {
     } else {
       const response = await putArticle({
         id: selectedArticle.id,
-        ...e,
+        title: e.title,
+        body: e.body,
         userId: currentUser?.id,
       });
 

@@ -30,7 +30,7 @@ const Homepage = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    setCurrentUser(JSON.parse(localStorage.getItem("currentUser")));
+    setCurrentUser(JSON.parse(sessionStorage.getItem("currentUser")));
   }, []);
 
   useEffect(() => {
@@ -67,17 +67,17 @@ const Homepage = () => {
   return (
     <>
       <Row style={{ marginBottom: "15px" }}>
-        <Title
-          level={2}
-          className="primary-text"
-          style={{ marginRight: "15px" }}
-        >
-          Hi, {currentUser?.name}
-        </Title>
         <Avatar
           src={`https://avatar.iran.liara.run/username?username=${currentUser?.name}`}
           size="large"
         />
+        <Title
+          level={2}
+          className="primary-text"
+          style={{ marginLeft: "15px" }}
+        >
+          Hi, {currentUser?.name}
+        </Title>
       </Row>
       <div className="article-detail-container">
         <Input

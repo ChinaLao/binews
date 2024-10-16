@@ -30,7 +30,7 @@ const Article = () => {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    setCurrentUser(JSON.parse(localStorage.getItem("currentUser")));
+    setCurrentUser(JSON.parse(sessionStorage.getItem("currentUser")));
   }, []);
 
   useEffect(() => {
