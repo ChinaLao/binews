@@ -8,6 +8,7 @@ import { auth } from "./firebase";
 import { setUserAuth } from "./features/user/userSlice";
 import { ConfigProvider } from "antd";
 import "./App.css";
+import NotFound from "./components/NotFound";
 
 const App = () => {
   const { userAuth } = useSelector((store) => store.user);
@@ -17,7 +18,6 @@ const App = () => {
     token: {
       colorPrimary: "#001529",
       colorTextBase: "#151515",
-      colorLinkHover: "#ffffff",
       colorBgContainer: "#fcfdff",
     },
   };
@@ -45,6 +45,7 @@ const App = () => {
         <div className={userAuth !== null ? "body" : "login"}>
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
             <Route path="/" element={<Homepage />} />
             <Route path="/articles/:articleId" element={<Article />} />
           </Routes>
