@@ -1,10 +1,8 @@
 :root {
   --primary: #001529;
-  --secondary: #1a44d8;
   --success: #52964d;
   --error: #c36262;
   --off-white: #f5faff;
-  --off-black: #151515;
 }
 * {
   margin: 0;

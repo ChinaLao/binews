@@ -7,6 +7,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useGetUsersQuery } from "../services/UsersAPI";
 import { setCurrentUser } from "../features/user/userSlice";
 import icon from "../images/bing-logo.png";
+import PageLoader from "./PageLoader";
 
 const Login = () => {
   const { userAuth } = useSelector((store) => store.user);
@@ -20,7 +21,7 @@ const Login = () => {
 
   const { data: usersData, isFetching: isFetchingUsers } = useGetUsersQuery();
 
-  if (isFetchingUsers) return "Loading...";
+  if (isFetchingUsers) return <PageLoader />;
 
   const onFinish = async (e) => {
     try {
