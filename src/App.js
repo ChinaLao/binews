@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
@@ -14,6 +14,7 @@ const App = () => {
   const { userAuth } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const theme = {
     token: {
       colorPrimary: "#001529",
@@ -36,22 +37,30 @@ const App = () => {
   return (
     <ConfigProvider theme={theme}>
       <div className="app">
-        {userAuth !== null && (
+        {(location.pathname === "/" ||
+          location.pathname.includes("articles/")) && (
           <div className="header">
             <Navbar />
           </div>
         )}
 
-        <div className={userAuth !== null ? "body" : "login"}>
+        <div
+          className={
+            location.pathname === "/" || location.pathname.includes("articles/")
+              ? "body"
+              : "login"
+          }
+        >
           <Routes>
             <Route path="/login" element={<Login />} />
-            <Route path="*" element={<NotFound />} />
             <Route path="/" element={<Homepage />} />
             <Route path="/articles/:articleId" element={<Article />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
 
-        {userAuth !== null && (
+        {(location.pathname === "/" ||
+          location.pathname.includes("articles/")) && (
           <div className="footer">
             <Footer />
           </div>

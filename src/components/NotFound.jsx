@@ -8,7 +8,7 @@ const NotFound = () => {
       style={{ height: "100%" }}
       justify="center"
       align="center"
-      className="logo-container"
+      className="container"
     >
       <Typography.Title level={2}>
         Oops, this page does not exist. Go to{" "}
