@@ -17,6 +17,7 @@ const ArticleForm = (props) => {
   const [putArticle] = usePutArticleMutation();
   const [currentUser, setCurrentUser] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
 
   useEffect(() => {
     setCurrentUser(JSON.parse(sessionStorage.getItem("currentUser")));
@@ -34,9 +35,11 @@ const ArticleForm = (props) => {
   };
   const closeDrawer = () => {
     form.resetFields();
+    setIsButtonLoading(false);
     setIsDrawerOpen(false);
   };
   const submitArticle = async (e) => {
+    setIsButtonLoading(true);
     if (props.type === "Add") {
       const response = await postArticle({
         userId: currentUser?.id,
@@ -126,7 +129,12 @@ const ArticleForm = (props) => {
           <Row>
             <Col span={24}>
               <Form.Item>
-                <Button block className={`primary-success`} htmlType="submit">
+                <Button
+                  block
+                  className={`primary-success`}
+                  htmlType="submit"
+                  loading={isButtonLoading}
+                >
                   {`${props.type} Article`}
                 </Button>
               </Form.Item>

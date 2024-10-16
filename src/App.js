@@ -17,7 +17,6 @@ const App = () => {
   useEffect(() => {
     return onAuthStateChanged(auth, (user) => {
       if (user !== null) {
-        console.log(auth);
         dispatch(setUserAuth(user.email));
       } else {
         dispatch(setUserAuth(null));
