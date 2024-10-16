@@ -87,11 +87,6 @@ const ArticleForm = (props) => {
         width={720}
         onClose={closeDrawer}
         open={isDrawerOpen}
-        styles={{
-          body: {
-            paddingBottom: 80,
-          },
-        }}
       >
         <Form layout="vertical" onFinish={submitArticle} form={form}>
           <Row>
