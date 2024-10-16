@@ -85,6 +85,7 @@ const Homepage = () => {
           placeholder="Search for an article..."
           onChange={(e) => setSearchTerm(e.target.value)}
           style={{ width: "300px", marginRight: "15px" }}
+          allowClear
         />
         <ArticleForm type="Add" />
       </div>
