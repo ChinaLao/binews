@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Typography, Avatar, Button } from "antd";
+import { Flex, Typography, Avatar, Button } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { clearCurrentUser } from "../features/user/userSlice";
@@ -19,12 +19,12 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="logo-container primary">
+      <Flex align="center" className="logo-container primary">
         <Avatar src={icon} size="large" />
         <Typography.Title level={2} className="brand">
           <Link to="/">Binews</Link>
         </Typography.Title>
-      </div>
+      </Flex>
       <Button
         type="primary"
         className="primary-error"

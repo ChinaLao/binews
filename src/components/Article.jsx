@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { Typography, Card, Avatar, Col, Divider, Image, Button } from "antd";
+import {
+  Flex,
+  Typography,
+  Card,
+  Avatar,
+  Col,
+  Divider,
+  Image,
+  Button,
+} from "antd";
 import { RollbackOutlined } from "@ant-design/icons";
 import {
   useGetArticlesQuery,
@@ -55,7 +64,7 @@ const Article = () => {
 
   return (
     <>
-      <div style={{ justifyContent: "space-between", display: "flex" }}>
+      <Flex justify="space-between">
         <Button
           className="primary-error"
           icon={<RollbackOutlined className="primary-error" />}
@@ -66,8 +75,8 @@ const Article = () => {
         {currentUser?.id === selectedArticle.author?.id && (
           <ArticleForm type="Edit" />
         )}
-      </div>
-      <div className="article-display-container">
+      </Flex>
+      <Flex align="center" className="article-display-container">
         <Card className="article-display">
           <Title level={2} className="primary-title">
             {selectedArticle?.title}
@@ -102,7 +111,7 @@ const Article = () => {
             ))}
           </div>
         </Card>
-      </div>
+      </Flex>
     </>
   );
 };

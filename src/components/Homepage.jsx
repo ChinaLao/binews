@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Typography, Row, Col, Card, Avatar, Image, Input } from "antd";
+import { Flex, Typography, Row, Col, Card, Avatar, Image, Input } from "antd";
 import { CommentOutlined } from "@ant-design/icons";
 import ArticleForm from "./ArticleForm";
 import {
@@ -80,7 +80,7 @@ const Homepage = () => {
           Hi, {currentUser?.name}
         </Title>
       </Row>
-      <div className="article-detail-container">
+      <Flex justify="space-between" align="center">
         <Input
           placeholder="Search for an article..."
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -88,13 +88,13 @@ const Homepage = () => {
           allowClear
         />
         <ArticleForm type="Add" />
-      </div>
+      </Flex>
       <Row gutter={[24, 24]}>
         {articles?.map((article) => (
           <Col xs={24} sm={12} lg={8} key={article.id}>
             <Card hoverable className="article-card">
               <a href={`/articles/${article.id}`}>
-                <div className="article-container">
+                <Flex justify="space-between" className="article-container">
                   <Title className="article-title" level={4}>
                     {article.title}
                   </Title>
@@ -106,15 +106,15 @@ const Homepage = () => {
                     fallback={fallbackImage}
                     preview={false}
                   />
-                </div>
-                <div className="article-detail-container">
+                </Flex>
+                <Flex justify="space-between" align="center">
                   <div>
                     <Avatar
                       src={`https://avatar.iran.liara.run/username?username=${article?.author?.name}`}
                     />
                     <Text className="detail">{article?.author?.name}</Text>
                   </div>
-                  <div className="article-detail-container">
+                  <Flex justify="space-between" align="center">
                     <CommentOutlined
                       style={{
                         fontSize: "20px",
@@ -122,8 +122,8 @@ const Homepage = () => {
                       className="primary-text"
                     />
                     <Text className="detail">{article?.comments?.length}</Text>
-                  </div>
-                </div>
+                  </Flex>
+                </Flex>
               </a>
             </Card>
           </Col>

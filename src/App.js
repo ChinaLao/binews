@@ -3,6 +3,7 @@ import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
+import { Flex } from "antd";
 import { Navbar, Homepage, Article, Login, Footer } from "./components";
 import { auth } from "./firebase";
 import { setUserAuth } from "./features/user/userSlice";
@@ -39,9 +40,9 @@ const App = () => {
       <div className="app">
         {(location.pathname === "/" ||
           location.pathname.includes("articles/")) && (
-          <div className="header">
+          <Flex align="center" justify="space-between" className="header">
             <Navbar />
-          </div>
+          </Flex>
         )}
 
         <div
@@ -61,9 +62,9 @@ const App = () => {
 
         {(location.pathname === "/" ||
           location.pathname.includes("articles/")) && (
-          <div className="footer">
+          <Flex justify="center" className="footer">
             <Footer />
-          </div>
+          </Flex>
         )}
       </div>
     </ConfigProvider>

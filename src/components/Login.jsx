@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Button, Avatar, Form, Input, Typography } from "antd";
+import { Flex, Button, Avatar, Form, Input, Typography } from "antd";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useGetUsersQuery } from "../services/UsersAPI";
@@ -45,13 +45,13 @@ const Login = () => {
 
   return (
     <>
-      <div className="container">
-        <div className="logo-container">
+      <Flex align="center" justify="center" className="container">
+        <Flex align="center" className="logo-container">
           <Avatar src={icon} size="large" />
           <Typography.Title level={2} className="brand primary-text">
             Binews
           </Typography.Title>
-        </div>
+        </Flex>
         <Form
           name="basic"
           style={{ width: "600px", marginTop: "15px" }}
@@ -82,7 +82,7 @@ const Login = () => {
             </Button>
           </Form.Item>
         </Form>
-      </div>
+      </Flex>
     </>
   );
 };
