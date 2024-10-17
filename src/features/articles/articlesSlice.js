@@ -36,11 +36,10 @@ const articlesSlice = createSlice({
     },
     setSelectedArticle: (state, action) => {
       const { article, comments, authors } = action.payload;
-
-      var articleComments = comments?.filter(
+      const articleComments = comments?.filter(
         (comment) => comment.postId === article.id
       );
-      var articleAuthor = authors
+      const articleAuthor = authors
         ? authors[authors?.findIndex((author) => author.id === article.userId)]
         : { name: "Unknown Author" };
 

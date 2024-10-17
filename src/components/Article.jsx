@@ -47,13 +47,15 @@ const Article = () => {
 
   useEffect(() => {
     if (!isFetchingArticles && !isFetchingComments && !isFetchingAuthors) {
-      dispatch(
-        setSelectedArticle({
-          article: articleData,
-          comments: comments,
-          authors: authors,
-        })
-      );
+      if (articleData === undefined || articleData === null) navigate("/");
+      else
+        dispatch(
+          setSelectedArticle({
+            article: articleData,
+            comments: comments,
+            authors: authors,
+          })
+        );
     }
   }, [articleData, comments, authors]);
 
