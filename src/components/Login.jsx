@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Flex, Button, Avatar, Form, Input, Typography } from "antd";
 import { auth } from "../firebase";
@@ -8,6 +8,7 @@ import icon from "../images/bing-logo.png";
 import PageLoader from "./PageLoader";
 
 const Login = () => {
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
@@ -16,6 +17,7 @@ const Login = () => {
   if (isFetchingUsers) return <PageLoader />;
 
   const onFinish = async (e) => {
+    setIsButtonLoading(true);
     try {
       await signInWithEmailAndPassword(
         auth,
@@ -36,6 +38,7 @@ const Login = () => {
           })
         );
 
+        setIsButtonLoading(false);
         navigate("/");
       }
     } catch (error) {
@@ -77,7 +80,12 @@ const Login = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button block className="primary" htmlType="submit">
+            <Button
+              block
+              className="primary"
+              htmlType="submit"
+              loading={isButtonLoading}
+            >
               Log in
             </Button>
           </Form.Item>
