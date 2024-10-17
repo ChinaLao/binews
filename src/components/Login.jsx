@@ -30,7 +30,10 @@ const Login = () => {
       if (index >= 0) {
         sessionStorage.setItem(
           "currentUser",
-          JSON.stringify(usersData[index].name)
+          JSON.stringify({
+            id: usersData[index].id,
+            name: usersData[index].name,
+          })
         );
 
         navigate("/");
