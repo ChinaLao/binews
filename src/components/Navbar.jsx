@@ -1,14 +1,18 @@
 import React from "react";
 import { Flex, Typography, Avatar, Button } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import icon from "../images/bing-logo.png";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
   const logout = async () => {
     await signOut(auth);
+    sessionStorage.clear();
+    navigate("/login");
   };
 
   return (

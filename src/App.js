@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { Flex } from "antd";
 import { Navbar, Homepage, Article, Login, Footer } from "./components";
@@ -17,13 +17,11 @@ const App = () => {
     },
   };
 
-  const [currentUser, setCurrentUser] = useState(null);
-
   useEffect(() => {
-    setCurrentUser(JSON.parse(sessionStorage.getItem("currentUser")));
+    const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
     if (currentUser === null) navigate("/login");
     else if (currentUser === undefined) sessionStorage.clear();
-  }, [currentUser]);
+  }, []);
 
   return (
     <ConfigProvider theme={theme}>
