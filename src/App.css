@@ -1,10 +1,8 @@
 :root {
   --primary: #001529;
-  --secondary: #1a44d8;
   --success: #52964d;
   --error: #c36262;
   --off-white: #f5faff;
-  --off-black: #151515;
 }
 * {
   margin: 0;
@@ -48,10 +46,7 @@
   margin-bottom: 0 !important;
 }
 .container {
-  display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   height: 100%;
   width: 100%;
 }
@@ -64,18 +59,13 @@
 }
 
 .header {
-  display: flex;
   padding: 15px;
   background-color: var(--primary);
   height: fit-content;
   width: 100%;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .logo-container {
-  display: flex;
-  align-items: center;
   height: fit-content;
 }
 .brand {
@@ -97,8 +87,6 @@
   min-height: 200px;
 }
 .article-container {
-  display: flex !important;
-  justify-content: space-between !important;
   height: 150px;
   margin-bottom: 15px;
   overflow: hidden;
@@ -108,19 +96,12 @@
   margin-right: 15px;
   text-transform: capitalize;
 }
-.article-detail-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 .detail {
   margin-left: 10px;
 }
 .article-display-container {
   height: fit-content;
-  display: flex;
   flex-direction: column;
-  align-items: center;
 }
 .article-display {
   height: fit-content;
@@ -144,10 +125,8 @@
 
 .footer {
   background-color: var(--primary);
-  display: flex;
   position: fixed;
   bottom: 0;
   padding: 10px;
-  justify-content: center;
   width: 100%;
 }

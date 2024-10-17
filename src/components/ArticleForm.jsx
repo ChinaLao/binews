@@ -17,9 +17,10 @@ const ArticleForm = (props) => {
   const [putArticle] = usePutArticleMutation();
   const [currentUser, setCurrentUser] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
 
   useEffect(() => {
-    setCurrentUser(JSON.parse(localStorage.getItem("currentUser")));
+    setCurrentUser(JSON.parse(sessionStorage.getItem("currentUser")));
   }, []);
 
   useEffect(() => {
@@ -34,22 +35,37 @@ const ArticleForm = (props) => {
   };
   const closeDrawer = () => {
     form.resetFields();
+    setIsButtonLoading(false);
     setIsDrawerOpen(false);
   };
   const submitArticle = async (e) => {
+    setIsButtonLoading(true);
     if (props.type === "Add") {
       const response = await postArticle({
-        userId: currentUser.id,
-        ...e,
+        userId: currentUser?.id,
+        title: e.title,
+        body: e.body,
       });
 
       console.log("Created new article!", response.data);
 
-      dispatch(addArticle(response.data));
+      dispatch(
+        addArticle({
+          id: response.data.id,
+          author: {
+            id: currentUser?.id,
+            name: currentUser?.name,
+          },
+          comments: [],
+          title: response.data.title,
+          body: response.data.body,
+        })
+      );
     } else {
       const response = await putArticle({
         id: selectedArticle.id,
-        ...e,
+        title: e.title,
+        body: e.body,
         userId: currentUser?.id,
       });
 
@@ -82,11 +98,6 @@ const ArticleForm = (props) => {
         width={720}
         onClose={closeDrawer}
         open={isDrawerOpen}
-        styles={{
-          body: {
-            paddingBottom: 80,
-          },
-        }}
       >
         <Form layout="vertical" onFinish={submitArticle} form={form}>
           <Row>
@@ -124,7 +135,12 @@ const ArticleForm = (props) => {
           <Row>
             <Col span={24}>
               <Form.Item>
-                <Button block className={`primary-success`} htmlType="submit">
+                <Button
+                  block
+                  className={`primary-success`}
+                  htmlType="submit"
+                  loading={isButtonLoading}
+                >
                   {`${props.type} Article`}
                 </Button>
               </Form.Item>

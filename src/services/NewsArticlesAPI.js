@@ -52,21 +52,9 @@ export const newsCommentsAPI = createApi({
   }),
 });
 
-export const newsAuthorsAPI = createApi({
-  reducerPath: "newsAuthorsAPI",
-  baseQuery: fetchBaseQuery({ baseUrl: baseURL }),
-  endpoints: (builder) => ({
-    getAuthors: builder.query({
-      query: (authorId) =>
-        createRequest(`/users${authorId ? `/${authorId}` : ""}`),
-    }),
-  }),
-});
-
 export const {
   useGetArticlesQuery,
   usePostArticleMutation,
   usePutArticleMutation,
 } = newsArticleAPI;
 export const { useGetCommentsQuery } = newsCommentsAPI;
-export const { useGetAuthorsQuery } = newsAuthorsAPI;
