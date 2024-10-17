@@ -35,7 +35,20 @@ const articlesSlice = createSlice({
       state.articlesList.sort((a, b) => b.id - a.id);
     },
     setSelectedArticle: (state, action) => {
-      state.selectedArticle = action.payload;
+      const { article, comments, authors } = action.payload;
+
+      var articleComments = comments?.filter(
+        (comment) => comment.postId === article.id
+      );
+      var articleAuthor = authors
+        ? authors[authors?.findIndex((author) => author.id === article.userId)]
+        : { name: "Unknown Author" };
+
+      state.selectedArticle = {
+        ...article,
+        comments: [...articleComments],
+        author: articleAuthor,
+      };
     },
     editArticle: (state, action) => {
       state.selectedArticle.title = action.payload.title;

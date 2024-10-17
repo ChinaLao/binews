@@ -27,15 +27,17 @@ const fallbackImage =
 const { Title, Text } = Typography;
 
 const Article = () => {
-  const { selectedArticle } = useSelector((store) => store.articles);
-  const dispatch = useDispatch();
   const { articleId } = useParams();
   const navigate = useNavigate();
+
   const { data: articleData, isFetching: isFetchingArticles } =
     useGetArticlesQuery(articleId);
   const { data: comments, isFetching: isFetchingComments } =
     useGetCommentsQuery();
   const { data: authors, isFetching: isFetchingAuthors } = useGetUsersQuery();
+
+  const { selectedArticle } = useSelector((store) => store.articles);
+  const dispatch = useDispatch();
 
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -44,19 +46,15 @@ const Article = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(
-      setSelectedArticle({
-        ...articleData,
-        comments: comments?.filter(
-          (comment) => comment.postId === articleData?.id
-        ),
-        author: authors
-          ? authors[
-              authors?.findIndex((author) => author.id === articleData?.userId)
-            ]
-          : { name: "Unknown Author" },
-      })
-    );
+    if (!isFetchingArticles && !isFetchingComments && !isFetchingAuthors) {
+      dispatch(
+        setSelectedArticle({
+          article: articleData,
+          comments: comments,
+          authors: authors,
+        })
+      );
+    }
   }, [articleData, comments, authors]);
 
   if (isFetchingArticles || isFetchingComments || isFetchingAuthors)
@@ -72,7 +70,7 @@ const Article = () => {
         >
           Go back
         </Button>
-        {currentUser?.id === selectedArticle.author?.id && (
+        {currentUser?.id === selectedArticle?.author?.id && (
           <ArticleForm type="Edit" />
         )}
       </Flex>
