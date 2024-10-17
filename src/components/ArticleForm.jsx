@@ -49,7 +49,18 @@ const ArticleForm = (props) => {
 
       console.log("Created new article!", response.data);
 
-      dispatch(addArticle(response.data));
+      dispatch(
+        addArticle({
+          id: response.data.id,
+          author: {
+            id: currentUser?.id,
+            name: currentUser?.name,
+          },
+          comments: [],
+          title: response.data.title,
+          body: response.data.body,
+        })
+      );
     } else {
       const response = await putArticle({
         id: selectedArticle.id,
