@@ -30,7 +30,6 @@ const articlesSlice = createSlice({
       state.articlesList = mappedArticles;
     },
     addArticle: (state, action) => {
-      console.log(state.articlesList, action.payload);
       state.articlesList.push(action.payload);
       state.articlesList.sort((a, b) => b.id - a.id);
     },
