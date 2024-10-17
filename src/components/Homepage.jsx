@@ -23,11 +23,11 @@ const Homepage = () => {
     useGetCommentsQuery();
   const { data: authors, isFetching: isFetchingAuthors } = useGetAuthorsQuery();
 
-  const { articles } = useSelector((store) => store.articles);
+  const { articlesList } = useSelector((store) => store.articles);
   const dispatch = useDispatch();
 
   const [currentUser, setCurrentUser] = useState(null);
-  const [articleList, setArticleList] = useState();
+  const [articles, setArticles] = useState();
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
@@ -35,32 +35,28 @@ const Homepage = () => {
   }, []);
 
   useEffect(() => {
-    const mappedArticles = articleData?.map((article) => {
-      return {
-        ...article,
-        comments: comments?.filter((comment) => comment.postId === article.id),
-        author: authors
-          ? authors[
-              authors?.findIndex((author) => author.id === article.userId)
-            ]
-          : { name: "Unknown Author" },
-      };
-    });
-
-    setArticleList(mappedArticles);
+    if (!isFetchingArticles && !isFetchingComments && !isFetchingAuthors) {
+      dispatch(
+        initialize({
+          articles: articleData,
+          comments: comments,
+          authors: authors,
+        })
+      );
+    }
   }, [articleData, comments, authors]);
 
   useEffect(() => {
     const term = searchTerm.toLowerCase();
-    const filteredData = articleList?.filter(
-      (article) =>
-        article.title.toLowerCase().includes(term) ||
-        article.body.toLowerCase().includes(term) ||
-        article?.author?.name.toLowerCase().includes(term)
+    setArticles(
+      articlesList?.filter(
+        (article) =>
+          article.title.toLowerCase().includes(term) ||
+          article.body.toLowerCase().includes(term) ||
+          article?.author?.name.toLowerCase().includes(term)
+      )
     );
-
-    dispatch(initialize(filteredData));
-  }, [articleList, searchTerm]);
+  }, [articlesList, searchTerm]);
 
   if (isFetchingArticles || isFetchingComments || isFetchingAuthors)
     return <PageLoader />;

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  articles: null,
+  articlesList: null,
   selectedArticle: null,
 };
 
@@ -10,12 +10,29 @@ const articlesSlice = createSlice({
   initialState,
   reducers: {
     initialize: (state, action) => {
-      state.articles = action.payload;
-      state.articles?.sort((a, b) => b.id - a.id);
+      const { articles, comments, authors } = action.payload;
+      const mappedArticles = articles
+        ?.map((article) => {
+          return {
+            ...article,
+            comments: comments?.filter(
+              (comment) => comment.postId === article.id
+            ),
+            author: authors
+              ? authors[
+                  authors?.findIndex((author) => author.id === article.userId)
+                ]
+              : { name: "Unknown Author" },
+          };
+        })
+        .sort((a, b) => b.id - a.id);
+
+      state.articlesList = mappedArticles;
     },
     addArticle: (state, action) => {
-      state.articles?.push(action.payload);
-      state.articles?.sort((a, b) => b.id - a.id);
+      console.log(state.articlesList, action.payload);
+      state.articlesList.push(action.payload);
+      state.articlesList.sort((a, b) => b.id - a.id);
     },
     setSelectedArticle: (state, action) => {
       state.selectedArticle = action.payload;
