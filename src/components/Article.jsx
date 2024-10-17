@@ -15,8 +15,8 @@ import { RollbackOutlined } from "@ant-design/icons";
 import {
   useGetArticlesQuery,
   useGetCommentsQuery,
-  useGetAuthorsQuery,
 } from "../services/NewsArticlesAPI";
+import { useGetUsersQuery } from "../services/UsersAPI";
 import ArticleForm from "./ArticleForm";
 import { setSelectedArticle } from "../features/articles/articlesSlice";
 import PageLoader from "./PageLoader";
@@ -35,7 +35,7 @@ const Article = () => {
     useGetArticlesQuery(articleId);
   const { data: comments, isFetching: isFetchingComments } =
     useGetCommentsQuery();
-  const { data: authors, isFetching: isFetchingAuthors } = useGetAuthorsQuery();
+  const { data: authors, isFetching: isFetchingAuthors } = useGetUsersQuery();
 
   const [currentUser, setCurrentUser] = useState(null);
 

@@ -6,8 +6,8 @@ import ArticleForm from "./ArticleForm";
 import {
   useGetArticlesQuery,
   useGetCommentsQuery,
-  useGetAuthorsQuery,
 } from "../services/NewsArticlesAPI";
+import { useGetUsersQuery } from "../services/UsersAPI";
 import { initialize } from "../features/articles/articlesSlice";
 import PageLoader from "./PageLoader";
 
@@ -21,7 +21,7 @@ const Homepage = () => {
     useGetArticlesQuery();
   const { data: comments, isFetching: isFetchingComments } =
     useGetCommentsQuery();
-  const { data: authors, isFetching: isFetchingAuthors } = useGetAuthorsQuery();
+  const { data: authors, isFetching: isFetchingAuthors } = useGetUsersQuery();
 
   const { articlesList } = useSelector((store) => store.articles);
   const dispatch = useDispatch();
