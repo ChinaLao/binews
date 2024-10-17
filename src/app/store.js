@@ -5,7 +5,6 @@ import {
   newsCommentsAPI,
   newsAuthorsAPI,
 } from "../services/NewsArticlesAPI";
-import userReducer from "../features/user/userSlice";
 import articlesReducer from "../features/articles/articlesSlice";
 
 export default configureStore({
@@ -14,7 +13,6 @@ export default configureStore({
     [newsArticleAPI.reducerPath]: newsArticleAPI.reducer,
     [newsCommentsAPI.reducerPath]: newsCommentsAPI.reducer,
     [newsAuthorsAPI.reducerPath]: newsAuthorsAPI.reducer,
-    user: userReducer,
     articles: articlesReducer,
   },
   middleware: (getDefaultMiddleware) =>

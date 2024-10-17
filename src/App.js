@@ -1,19 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
 import { Flex } from "antd";
 import { Navbar, Homepage, Article, Login, Footer } from "./components";
-import { auth } from "./firebase";
-import { setUserAuth } from "./features/user/userSlice";
 import { ConfigProvider } from "antd";
 import "./App.css";
 import NotFound from "./components/NotFound";
 
 const App = () => {
-  const { userAuth } = useSelector((store) => store.user);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const theme = {
@@ -24,16 +17,13 @@ const App = () => {
     },
   };
 
+  const [currentUser, setCurrentUser] = useState(null);
+
   useEffect(() => {
-    return onAuthStateChanged(auth, (user) => {
-      if (user !== null) {
-        dispatch(setUserAuth(user.email));
-      } else {
-        dispatch(setUserAuth(null));
-        navigate("/login");
-      }
-    });
-  }, []);
+    setCurrentUser(JSON.parse(sessionStorage.getItem("currentUser")));
+    if (currentUser === null) navigate("/login");
+    else if (currentUser === undefined) sessionStorage.clear();
+  }, [currentUser]);
 
   return (
     <ConfigProvider theme={theme}>

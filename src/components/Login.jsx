@@ -1,23 +1,15 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Flex, Button, Avatar, Form, Input, Typography } from "antd";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useGetUsersQuery } from "../services/UsersAPI";
-import { setCurrentUser } from "../features/user/userSlice";
 import icon from "../images/bing-logo.png";
 import PageLoader from "./PageLoader";
 
 const Login = () => {
-  const { userAuth } = useSelector((store) => store.user);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form] = Form.useForm();
-
-  useEffect(() => {
-    if (userAuth !== null) navigate("/");
-  }, [userAuth]);
 
   const { data: usersData, isFetching: isFetchingUsers } = useGetUsersQuery();
 
@@ -36,7 +28,12 @@ const Login = () => {
       );
 
       if (index >= 0) {
-        dispatch(setCurrentUser(usersData[index]));
+        sessionStorage.setItem(
+          "currentUser",
+          JSON.stringify(usersData[index].name)
+        );
+
+        navigate("/");
       }
     } catch (error) {
       console.log(error);
